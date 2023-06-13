@@ -2,10 +2,8 @@
 
 namespace Tots\Role\Providers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
-use Tots\Auth\Guards\AuthGuard;
-use Tots\Auth\Services\AuthService;
+use Tots\Role\Services\RoleService;
 
 class RoleServiceProvider extends ServiceProvider
 {
@@ -20,6 +18,10 @@ class RoleServiceProvider extends ServiceProvider
         if($this->app->runningInConsole()){
             $this->registerMigrations();
         }
+        // Register role singleton
+        $this->app->singleton(RoleService::class, function ($app) {
+            return new RoleService(config('role'));
+        });
     }
     /**
      * Register migrations library
