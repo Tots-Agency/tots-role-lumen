@@ -21,9 +21,9 @@ class RoleLoginController extends LoginController
         return parent::login($request);
     }
 
-    protected function getActiveUser($email, $password)
+    protected function getActiveUser(Request $request, $email, $password)
     {
-        $user = parent::getActiveUser($email, $password);
+        $user = parent::getActiveUser($request, $email, $password);
         // Verify if same role  
         if($user->role != $this->role){
             throw new \Exception('Not has permission');
